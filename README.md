@@ -1,9 +1,9 @@
 # 🤖 Language-Grounded Robot Autonomy
 
-[![Language-Grounded Robot Autonomy UI Overview](docs/images/hero-ui-overview.png)](https://github.com/promzyadiole/Language-Grounded-Robot-Autonomy/blob/main/docs/videos/robot-demo-with-speech.mp4)
+[![Language-Grounded Robot Autonomy UI Overview](docs/images/hero-ui-overview.png)](https://promzyadiole.github.io/Language-Grounded-Robot-Autonomy/demo/)
 
 <p align="center">
-  <em>Click the image to watch the full demo video.</em>
+  <strong><a href="https://promzyadiole.github.io/Language-Grounded-Robot-Autonomy/demo/">▶ Play Demo Video</a></strong>
 </p>
 
 

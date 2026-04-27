@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Language-Grounded Robot Autonomy Demo</title>
+    <meta
+      name="description"
+      content="Demo video for the Language-Grounded Robot Autonomy project."
+    />
+    <style>
+      :root {
+        --bg: #0f172a;
+        --panel: #111827;
+        --panel-2: #1f2937;
+        --text: #e5e7eb;
+        --muted: #94a3b8;
+        --accent: #22c55e;
+        --border: rgba(255, 255, 255, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, Arial, Helvetica, sans-serif;
+        background: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+        color: var(--text);
+      }
+
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 40px 20px 64px;
+      }
+
+      .hero {
+        text-align: center;
+        margin-bottom: 28px;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(34, 197, 94, 0.12);
+        color: #86efac;
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        line-height: 1.05;
+      }
+
+      .subtitle {
+        max-width: 850px;
+        margin: 0 auto;
+        color: var(--muted);
+        font-size: 1.05rem;
+        line-height: 1.7;
+      }
+
+      .player-card {
+        background: rgba(17, 24, 39, 0.92);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 18px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+        margin-top: 28px;
+      }
+
+      video {
+        width: 100%;
+        border-radius: 18px;
+        background: #000;
+        display: block;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .btn {
+        display: inline-block;
+        text-decoration: none;
+        border-radius: 14px;
+        padding: 12px 18px;
+        font-weight: 700;
+        transition: 0.2s ease;
+        border: 1px solid var(--border);
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: #052e16;
+      }
+
+      .btn-primary:hover {
+        filter: brightness(1.05);
+      }
+
+      .btn-secondary {
+        background: var(--panel-2);
+        color: var(--text);
+      }
+
+      .btn-secondary:hover {
+        background: #273449;
+      }
+
+      .section {
+        margin-top: 38px;
+        background: rgba(17, 24, 39, 0.6);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 24px;
+      }
+
+      .section h2 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        font-size: 1.35rem;
+      }
+
+      .section p,
+      .section li {
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      ul {
+        padding-left: 20px;
+        margin: 0;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 32px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      code {
+        background: rgba(255, 255, 255, 0.06);
+        padding: 2px 6px;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="hero">
+        <div class="badge">Robot Demo</div>
+        <h1>Language-Grounded Robot Autonomy</h1>
+        <p class="subtitle">
+          A full-stack framework that connects natural language commands,
+          speech-to-text, multimodal perception, ROS 2 execution, structured
+          navigation, and a modern web interface for robot interaction.
+        </p>
+      </section>
+
+      <section class="player-card">
+        <video controls preload="metadata" poster="../images/hero-ui-overview.png">
+          <source src="../videos/robot-demo-with-speech.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="../videos/robot-demo-with-speech.mp4">Download MP4</a>
+          <a class="btn btn-secondary" href="https://github.com/promzyadiole/Language-Grounded-Robot-Autonomy">View Repository</a>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>What this demo shows</h2>
+        <ul>
+          <li>Natural-language robot command execution through a web interface</li>
+          <li>Speech input on the chat page</li>
+          <li>ROS 2 and Nav2-based control and navigation</li>
+          <li>SAM + CLIP multimodal scene understanding</li>
+          <li>FastAPI backend connected to a Next.js frontend</li>
+        </ul>
+      </section>
+
+      <footer>
+        Built for the <strong>Language-Grounded Robot Autonomy</strong> project.
+      </footer>
+    </main>
+  </body>
+</html>
