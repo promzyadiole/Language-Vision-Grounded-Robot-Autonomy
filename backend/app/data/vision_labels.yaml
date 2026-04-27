@@ -1,0 +1,20 @@
+vision_labels:
+  - chair
+  - table
+  - person
+  - bottle
+  - cup
+  - laptop
+  - door
+  - sofa
+  - bed
+  - refrigerator
+  - television
+  - plant
+  - bookshelf
+  - trash can
+  - cabinet
+  - monitor
+  - keyboard
+  - mouse
+  - car

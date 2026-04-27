@@ -1,0 +1,40 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment / logs
+.env
+*.log
+vision_debug.log
+
+# Generated outputs
+output.json
+output_fast.json
+output_full.json
+output_fast_annotated.json
+
+# Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Model artifacts
+backend/models/
+backend/**/hf_cache/
+backend/**/*.pth
+backend/**/*.pt
+backend/**/*.bin
+backend/**/*.ckpt
+backend/**/*.safetensors
+
+# Misc
+dist/
+build/

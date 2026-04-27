@@ -1,0 +1,117 @@
+places:
+  parlour:
+    aliases: ["parlour", "living room", "lounge", "sitting room"]
+    pose:
+      x: -3.0
+      y: 0.0
+      yaw: 3.14
+
+  kitchen:
+    aliases: ["kitchen"]
+    pose:
+      x: -4.0
+      y: 3.0
+      yaw: 3.14
+
+  dining_room:
+    aliases: ["dining room", "dining area"]
+    pose:
+      x: 8.0
+      y: 3.0
+      yaw: 1.57
+    metadata:
+      capture_on_arrival: true
+
+  master_bedroom:
+    aliases: ["master bedroom", "bedroom"]
+    pose:
+      x: 8.0
+      y: -3.0
+      yaw: 1.57
+
+  garage:
+    aliases: ["garage"]
+    pose:
+      x: 3.2
+      y: -5.5
+      yaw: -1.57
+    metadata:
+      capture_on_arrival: true
+
+  store_area:
+    aliases: ["store area", "store", "storage"]
+    pose:
+      x: -3.0
+      y: -5.5
+      yaw: 3.14
+    metadata:
+      capture_on_arrival: true
+
+  home:
+    aliases: ["home", "start", "origin", "base"]
+    pose:
+      x: 0.0604
+      y: -0.0568
+      yaw: -0.0006
+
+routes:
+  patrol_route:
+    type: waypoint_sequence
+    points:
+      - {x: -3.0, y: 0.0, yaw: 3.14, label: "parlour"}
+      - {x: -4.0, y: 3.0, yaw: 3.14, label: "kitchen"}
+      - {x: 2.0, y: 2.0, yaw: 0.0, label: "transit_1"}
+      - {x: 8.0, y: 3.0, yaw: 1.57, label: "dining_room", capture: true}
+      - {x: 8.0, y: -3.0, yaw: 1.57, label: "master_bedroom"}
+      - {x: 5.0, y: -1.5, yaw: 0.0, label: "transit_2"}
+      - {x: 2.5, y: -1.5, yaw: -1.57, label: "transit_3"}
+      - {x: 3.2, y: -5.5, yaw: -1.57, label: "garage", capture: true}
+      - {x: -3.0, y: -5.5, yaw: 3.14, label: "store_area", capture: true}
+      - {x: -2.0, y: -5.5, yaw: 1.57, label: "transit_4"}
+      - {x: -2.0, y: -3.0, yaw: 0.0, label: "transit_5"}
+      - {x: -3.0, y: 0.0, yaw: -1.57, label: "parlour_return", capture: true}
+
+motions:
+  move_forward:
+    aliases: ["move forward", "go forward", "forward"]
+    cmd_vel:
+      linear_x: 0.20
+      angular_z: 0.0
+      duration_sec: 2.0
+
+  move_backward:
+    aliases: ["move backward", "go backward", "reverse", "backward"]
+    cmd_vel:
+      linear_x: -0.20
+      angular_z: 0.0
+      duration_sec: 2.0
+
+  turn_left:
+    aliases: ["turn left", "go left", "left"]
+    cmd_vel:
+      linear_x: 0.0
+      angular_z: 0.6
+      duration_sec: 1.5
+
+  turn_right:
+    aliases: ["turn right", "go right", "right"]
+    cmd_vel:
+      linear_x: 0.0
+      angular_z: -0.6
+      duration_sec: 1.5
+
+  rotate:
+    aliases: ["rotate", "spin", "turn around", "rotate in place"]
+    cmd_vel:
+      linear_x: 0.0
+      angular_z: 0.8
+      duration_sec: 3.5
+
+  stop:
+    aliases: ["stop", "halt", "freeze"]
+    cmd_vel:
+      linear_x: 0.0
+      angular_z: 0.0
+      duration_sec: 0.0
+
+  
