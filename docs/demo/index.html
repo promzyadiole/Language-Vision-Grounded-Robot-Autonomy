@@ -3,84 +3,215 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Language-Grounded Robot Autonomy Demo</title>
+    <title>Language-Vision-Grounded-Robot-Autonomy Demo</title>
     <meta
       name="description"
-      content="Demo video for the Language-Grounded Robot Autonomy project."
+      content="Interactive demo page for the Language-Vision-Grounded-Robot-Autonomy project."
     />
     <style>
       :root {
-        --bg: #0f172a;
-        --panel: #111827;
-        --panel-2: #1f2937;
-        --text: #e5e7eb;
+        --bg-1: #020617;
+        --bg-2: #0f172a;
+        --panel: rgba(15, 23, 42, 0.78);
+        --panel-strong: rgba(17, 24, 39, 0.92);
+        --panel-soft: rgba(30, 41, 59, 0.68);
+        --text: #e2e8f0;
         --muted: #94a3b8;
-        --accent: #22c55e;
-        --border: rgba(255, 255, 255, 0.08);
+        --heading: #f8fafc;
+        --accent: #38bdf8;
+        --accent-2: #22c55e;
+        --accent-3: #a78bfa;
+        --border: rgba(255, 255, 255, 0.1);
+        --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+        --radius-xl: 28px;
+        --radius-lg: 20px;
+        --radius-md: 14px;
       }
 
       * {
         box-sizing: border-box;
       }
 
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
         margin: 0;
         font-family: Inter, Arial, Helvetica, sans-serif;
-        background: linear-gradient(180deg, #020617 0%, #0f172a 100%);
         color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(56, 189, 248, 0.14), transparent 28%),
+          radial-gradient(circle at top right, rgba(167, 139, 250, 0.14), transparent 24%),
+          linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+      }
+
+      a {
+        color: inherit;
       }
 
       .wrap {
-        max-width: 1100px;
+        max-width: 1200px;
         margin: 0 auto;
-        padding: 40px 20px 64px;
+        padding: 36px 20px 72px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 28px;
+        padding: 14px 18px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        backdrop-filter: blur(12px);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+      }
+
+      .brand-dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        box-shadow: 0 0 18px rgba(56, 189, 248, 0.45);
+        flex-shrink: 0;
+      }
+
+      .brand-text {
+        font-weight: 700;
+        color: var(--heading);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .top-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
       }
 
       .hero {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+        background:
+          linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(34, 197, 94, 0.04)),
+          rgba(15, 23, 42, 0.65);
+        padding: 42px 26px 34px;
+        box-shadow: var(--shadow);
         text-align: center;
-        margin-bottom: 28px;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: auto -120px -120px auto;
+        width: 260px;
+        height: 260px;
+        background: radial-gradient(circle, rgba(56, 189, 248, 0.14), transparent 70%);
+        pointer-events: none;
       }
 
       .badge {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         padding: 8px 14px;
         border-radius: 999px;
-        background: rgba(34, 197, 94, 0.12);
-        color: #86efac;
+        background: rgba(56, 189, 248, 0.1);
+        border: 1px solid rgba(56, 189, 248, 0.22);
+        color: #bae6fd;
+        font-size: 0.92rem;
         font-weight: 700;
-        font-size: 14px;
         letter-spacing: 0.02em;
-        margin-bottom: 16px;
+        margin-bottom: 18px;
       }
 
       h1 {
-        margin: 0 0 12px;
-        font-size: clamp(2rem, 4vw, 3.5rem);
-        line-height: 1.05;
+        margin: 0 0 14px;
+        color: var(--heading);
+        font-size: clamp(2.2rem, 4vw, 4rem);
+        line-height: 1.04;
+        letter-spacing: -0.03em;
       }
 
       .subtitle {
-        max-width: 850px;
+        max-width: 900px;
         margin: 0 auto;
-        color: var(--muted);
         font-size: 1.05rem;
-        line-height: 1.7;
+        line-height: 1.85;
+        color: var(--muted);
+      }
+
+      .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 22px;
+      }
+
+      .meta-pill {
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border);
+        color: #cbd5e1;
+        font-size: 0.92rem;
       }
 
       .player-card {
-        background: rgba(17, 24, 39, 0.92);
-        border: 1px solid var(--border);
-        border-radius: 24px;
-        padding: 18px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
         margin-top: 28px;
+        padding: 18px;
+        border-radius: var(--radius-xl);
+        background: var(--panel-strong);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+
+      .player-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 14px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+      }
+
+      .player-title {
+        margin: 0;
+        font-size: 1.2rem;
+        color: var(--heading);
+      }
+
+      .player-copy {
+        margin: 6px 0 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .video-shell {
+        overflow: hidden;
+        border-radius: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        background: #000;
       }
 
       video {
         width: 100%;
-        border-radius: 18px;
-        background: #000;
         display: block;
+        background: #000;
       }
 
       .actions {
@@ -88,118 +219,364 @@
         flex-wrap: wrap;
         gap: 12px;
         justify-content: center;
-        margin-top: 20px;
+        margin-top: 18px;
       }
 
       .btn {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         text-decoration: none;
         border-radius: 14px;
-        padding: 12px 18px;
+        padding: 13px 18px;
         font-weight: 700;
-        transition: 0.2s ease;
         border: 1px solid var(--border);
+        transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
       }
 
       .btn-primary {
-        background: var(--accent);
-        color: #052e16;
+        background: linear-gradient(135deg, var(--accent), #0ea5e9);
+        color: #082f49;
+        border-color: rgba(56, 189, 248, 0.38);
       }
 
-      .btn-primary:hover {
-        filter: brightness(1.05);
+      .btn-success {
+        background: linear-gradient(135deg, var(--accent-2), #16a34a);
+        color: #052e16;
+        border-color: rgba(34, 197, 94, 0.34);
       }
 
       .btn-secondary {
-        background: var(--panel-2);
+        background: rgba(255, 255, 255, 0.04);
         color: var(--text);
       }
 
       .btn-secondary:hover {
-        background: #273449;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 22px;
+        margin-top: 28px;
       }
 
       .section {
-        margin-top: 38px;
-        background: rgba(17, 24, 39, 0.6);
+        border-radius: var(--radius-xl);
+        background: var(--panel);
         border: 1px solid var(--border);
-        border-radius: 24px;
         padding: 24px;
+        backdrop-filter: blur(12px);
       }
 
       .section h2 {
-        margin-top: 0;
-        margin-bottom: 12px;
-        font-size: 1.35rem;
+        margin: 0 0 12px;
+        color: var(--heading);
+        font-size: 1.28rem;
       }
 
-      .section p,
-      .section li {
-        color: var(--muted);
-        line-height: 1.75;
-      }
-
-      ul {
-        padding-left: 20px;
+      .section p {
         margin: 0;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 12px;
+      }
+
+      .feature-list li {
+        color: var(--text);
+        line-height: 1.65;
+        padding: 14px 14px;
+        border-radius: 16px;
+        background: var(--panel-soft);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .feature-list span {
+        color: var(--muted);
+      }
+
+      .quick-links {
+        display: grid;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .quick-link {
+        display: block;
+        text-decoration: none;
+        padding: 14px 16px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border);
+        transition: background 0.18s ease, transform 0.18s ease;
+      }
+
+      .quick-link:hover {
+        background: rgba(255, 255, 255, 0.07);
+        transform: translateY(-1px);
+      }
+
+      .quick-link strong {
+        display: block;
+        color: var(--heading);
+        margin-bottom: 4px;
+      }
+
+      .quick-link small {
+        color: var(--muted);
       }
 
       footer {
+        margin-top: 28px;
         text-align: center;
-        margin-top: 32px;
         color: var(--muted);
         font-size: 0.95rem;
       }
 
       code {
         background: rgba(255, 255, 255, 0.06);
-        padding: 2px 6px;
-        border-radius: 6px;
+        padding: 3px 8px;
+        border-radius: 8px;
+        color: #dbeafe;
+      }
+
+      @media (max-width: 900px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .topbar {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .top-actions {
+          justify-content: stretch;
+        }
+
+        .top-actions .btn {
+          flex: 1 1 auto;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .wrap {
+          padding: 20px 14px 48px;
+        }
+
+        .hero {
+          padding: 32px 18px 26px;
+        }
+
+        .section,
+        .player-card {
+          padding: 16px;
+        }
+
+        .actions {
+          flex-direction: column;
+        }
+
+        .actions .btn {
+          width: 100%;
+        }
       }
     </style>
   </head>
   <body>
     <main class="wrap">
+      <div class="topbar">
+        <div class="brand">
+          <span class="brand-dot"></span>
+          <div class="brand-text">Language-Vision-Grounded-Robot-Autonomy</div>
+        </div>
+
+        <div class="top-actions">
+          <a
+            class="btn btn-secondary"
+            href="../../README.md"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Project README
+          </a>
+          <a
+            class="btn btn-secondary"
+            href="https://github.com/promzyadiole/Language-Vision-Grounded-Robot-Autonomy"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub Repository
+          </a>
+        </div>
+      </div>
+
       <section class="hero">
-        <div class="badge">Robot Demo</div>
-        <h1>Language-Grounded Robot Autonomy</h1>
+        <div class="badge">Robot Demo • Small-House World</div>
+        <h1>Language-Vision-Grounded Robot Autonomy</h1>
         <p class="subtitle">
-          A full-stack framework that connects natural language commands,
-          speech-to-text, multimodal perception, ROS 2 execution, structured
-          navigation, and a modern web interface for robot interaction.
+          A full-stack robotics framework for language-guided navigation, semantic
+          localization, multimodal perception, ROS 2 execution, and a polished web
+          command center for embodied AI interaction.
         </p>
-      </section>
 
-      <section class="player-card">
-        <video controls preload="metadata" poster="../images/hero-ui-overview.png">
-          <source src="../videos/robot-demo-with-speech.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-
-        <div class="actions">
-          <a class="btn btn-primary" href="../videos/robot-demo-with-speech.mp4" target="_blank" rel="noopener noreferrer">Open Video</a>
-          <a class="btn btn-secondary" href="https://github.com/promzyadiole/Language-Grounded-Robot-Autonomy">View Repository</a>
-
-          <p style="text-align:center; color:#94a3b8; margin-top:14px; line-height:1.7;">
-            This demo showcases speech-enabled robot control, ROS 2 navigation, and multimodal scene understanding through a unified web interface.
-          </p>
-          
+        <div class="hero-meta">
+          <div class="meta-pill">ROS 2 Humble</div>
+          <div class="meta-pill">Nav2 + AMCL</div>
+          <div class="meta-pill">Gazebo + TurtleBot3 Waffle Pi</div>
+          <div class="meta-pill">FastAPI + Next.js</div>
+          <div class="meta-pill">SAM + CLIP Vision</div>
         </div>
       </section>
 
-      <section class="section">
-        <h2>What this demo shows</h2>
-        <ul>
-          <li>Natural-language robot command execution through a web interface</li>
-          <li>Speech input on the chat page</li>
-          <li>ROS 2 and Nav2-based control and navigation</li>
-          <li>SAM + CLIP multimodal scene understanding</li>
-          <li>FastAPI backend connected to a Next.js frontend</li>
-        </ul>
+      <section class="player-card">
+        <div class="player-head">
+          <div>
+            <h2 class="player-title">Demo Video</h2>
+            <p class="player-copy">
+              This walkthrough showcases semantic place navigation, robot command
+              execution, multimodal scene understanding, and the integrated
+              frontend-backend robotics workflow.
+            </p>
+          </div>
+        </div>
+
+        <div class="video-shell">
+          <video
+            controls
+            preload="metadata"
+            playsinline
+            poster="../images/hero-ui-overview.png"
+          >
+            <source src="./videos/My_Robot_small_house_demo.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <div class="actions">
+          <a
+            class="btn btn-primary"
+            href="./videos/My_Robot_small_house_demo.mp4"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Open Video
+          </a>
+
+          <a
+            class="btn btn-success"
+            href="../../README.md"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View Project README
+          </a>
+
+          <a
+            class="btn btn-secondary"
+            href="https://github.com/promzyadiole/Language-Vision-Grounded-Robot-Autonomy"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View Repository
+          </a>
+        </div>
       </section>
 
+      <div class="grid">
+        <section class="section">
+          <h2>What this demo shows</h2>
+          <ul class="feature-list">
+            <li>
+              <strong>Natural-language robot control</strong><br />
+              <span>Send robot commands through a clean web interface.</span>
+            </li>
+            <li>
+              <strong>Semantic place navigation</strong><br />
+              <span>Navigate to grounded room-level targets in the small-house environment.</span>
+            </li>
+            <li>
+              <strong>ROS 2 and Nav2 execution</strong><br />
+              <span>Bridge web requests to live robot actions, localization, and control.</span>
+            </li>
+            <li>
+              <strong>Vision-language perception</strong><br />
+              <span>Use SAM + CLIP-style perception for scene summary and object awareness.</span>
+            </li>
+            <li>
+              <strong>Full-stack architecture</strong><br />
+              <span>FastAPI backend, Next.js frontend, ROS 2 integration, and YAML grounding.</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2>Quick navigation</h2>
+          <p>
+            Use the links below to move between the live demo assets and the
+            project documentation in this repository.
+          </p>
+
+          <div class="quick-links">
+            <a
+              class="quick-link"
+              href="../../README.md"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <strong>Project README</strong>
+              <small>Open the full project overview, setup guide, and architecture notes.</small>
+            </a>
+
+            <a
+              class="quick-link"
+              href="../images/hero-ui-overview.png"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <strong>Hero UI Image</strong>
+              <small>Preview the main application interface screenshot.</small>
+            </a>
+
+            <a
+              class="quick-link"
+              href="./videos/My_Robot_small_house_demo.mp4"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <strong>Direct Video File</strong>
+              <small>Open the raw MP4 directly in the browser.</small>
+            </a>
+
+            <a
+              class="quick-link"
+              href="https://github.com/promzyadiole/Language-Vision-Grounded-Robot-Autonomy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <strong>GitHub Repository</strong>
+              <small>Open the full repository and browse the source files online.</small>
+            </a>
+          </div>
+        </section>
+      </div>
+
       <footer>
-        Built for the <strong>Language-Grounded Robot Autonomy</strong> project.
+        Built for the <strong>Language-Vision-Grounded-Robot-Autonomy</strong> project •
+        Demo page located at <code>docs/demo/index.html</code>
       </footer>
     </main>
   </body>
