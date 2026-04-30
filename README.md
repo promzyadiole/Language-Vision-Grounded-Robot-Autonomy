@@ -1,77 +1,112 @@
-# 🤖 Language-Grounded Robot Autonomy
+# 🤖 Language-Vision-Grounded-Robot-Autonomy
 
-[![Language-Grounded Robot Autonomy UI Overview](docs/images/hero-ui-overview.png)](https://promzyadiole.github.io/Language-Grounded-Robot-Autonomy/demo/)
+[![Language-Vision-Grounded Robot Autonomy UI Overview](docs/images/hero-ui-overview.png)](./docs/demo/videos/My_Robot_small_house_demo.mp4)
 
 <p align="center">
-  <strong><a href="https://promzyadiole.github.io/Language-Grounded-Robot-Autonomy/demo/">▶ Play Demo Video</a></strong>
+  <strong><a href="./docs/demo/videos/My_Robot_small_house_demo.mp4">▶ Watch Demo Video</a></strong>
 </p>
 
-
 <p align="center">
-  <strong>A full-stack robot command framework that connects natural language, multimodal perception, ROS 2 navigation, speech input, and a modern web interface.</strong>
+  <strong>A full-stack robotics framework for language-guided navigation, semantic localization, multimodal perception, and ROS 2 robot control through a modern web command center.</strong>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/ROS2-Humble-22314E?style=for-the-badge&logo=ros" alt="ROS2 Humble" />
-  <img src="https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi" alt="FastAPI" />
-  <img src="https://img.shields.io/badge/Next.js-Frontend-000000?style=for-the-badge&logo=nextdotjs" alt="Next.js" />
-  <img src="https://img.shields.io/badge/Nav2-Navigation-1E88E5?style=for-the-badge" alt="Nav2" />
-  <img src="https://img.shields.io/badge/SAM%20%2B%20CLIP-Vision-orange?style=for-the-badge" alt="SAM and CLIP" />
-  <img src="https://img.shields.io/badge/Speech-Web%20Speech%20API-purple?style=for-the-badge" alt="Speech API" />
+  <img src="https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi" alt="FastAPI Backend" />
+  <img src="https://img.shields.io/badge/Next.js-Frontend-000000?style=for-the-badge&logo=nextdotjs" alt="Next.js Frontend" />
+  <img src="https://img.shields.io/badge/Nav2-Navigation-1E88E5?style=for-the-badge" alt="Nav2 Navigation" />
+  <img src="https://img.shields.io/badge/SAM%20%2B%20CLIP-Vision-orange?style=for-the-badge" alt="SAM + CLIP Vision" />
+  <img src="https://img.shields.io/badge/Gazebo-Simulation-6A1B9A?style=for-the-badge" alt="Gazebo Simulation" />
+  <img src="https://img.shields.io/badge/TurtleBot3-Waffle%20Pi-4CAF50?style=for-the-badge" alt="TurtleBot3 Waffle Pi" />
 </p>
 
 ---
 
 ## 📌 Overview
 
-**Language-Grounded Robot Autonomy** is a modular robotics framework for controlling a mobile robot through **natural language**, **voice commands**, **multimodal scene understanding**, and **structured ROS 2 execution**.
+**Language-Vision-Grounded-Robot-Autonomy** is a modular full-stack robotics system that connects **natural language**, **voice commands**, **vision-language perception**, **ROS 2 navigation**, and a **web-based robot command center** into one integrated framework.
 
 The project combines:
 
-- a **FastAPI backend** for robot control, perception services, intent handling, and state tracking
-- a **Next.js frontend** for chat, navigation, control, dashboard, and vision monitoring
-- a **ROS 2 bridge** that connects the web layer to live robot topics, actions, and sensors
-- a **multimodal perception stack** for object detection, scene summarization, and annotated visual feedback
-- a **state memory layer** for pose history, last command, previous pose, scan summaries, and execution context
-- a **YAML-driven task registry** for configurable places, routes, and motion primitives
-- **browser speech-to-text** for voice-driven interaction
+- a **FastAPI backend** for intent handling, robot control, localization, perception services, and state management
+- a **Next.js frontend** for chat, navigation, dashboard, control, and vision monitoring
+- a **ROS 2 bridge** that connects web APIs to live robot topics, transforms, sensors, and Nav2 actions
+- a **vision stack built around SAM + CLIP/OpenCLIP** for scene understanding, object detection, and annotated perception output
+- a **YAML-grounded environment layer** for named places, waypoint routes, and motion primitives
+- a **state memory layer** for current pose, previous pose, last command, last result, and scan summaries
+- **browser speech input** for voice-driven robot interaction
+- a **small-house world workflow** for semantic indoor navigation and room-level grounding
 
-This repository is designed to be both:
-- a **research-engineering project** for language-grounded autonomy
-- a **practical framework** that can be adapted to your own custom ROS 2 robot
+This repository is designed as both:
+
+- a **research-engineering system** for language-grounded robot autonomy
+- a **practical framework** that can be adapted to simulation or real ROS 2 robots
 
 ---
 
-## ✨ Core Features
+## ✨ Core Capabilities
 
 ### 🗣️ Natural Language Robot Commands
-Users can send commands such as:
 
-- `Go to the kitchen`
-- `What do you see?`
-- `Where are you?`
-- `What was my last command?`
-- `Move forward`
-- `Turn right`
-- `Stop`
+Users can issue robot commands such as:
 
-The system parses user intent, maps it to safe execution primitives, and returns structured robot responses.
+```text
+Go to the kitchen
+Go to the dining room
+What do you see?
+Where are you?
+What was my last command?
+Move forward
+Turn right
+Stop
+```
+
+The system parses the instruction, maps it to grounded robot actions, executes through ROS 2, and returns structured feedback.
 
 ### 🎙️ Voice Command Support
-The chat page supports browser-based speech input using the **Web Speech API**, enabling microphone-driven command entry directly from the UI.
 
-### 👁️ Multimodal Perception
+The chat interface supports browser-based microphone input using the **Web Speech API**, allowing hands-free command entry directly from the UI.
+
+### 👁️ Vision-Language Perception
+
 The robot can:
-- summarize the scene
-- list visible objects
-- return annotated image overlays
-- respond to perception-grounded language queries
 
-### 🧭 Place-Based Navigation
-Named destinations such as `kitchen`, `garage`, `parlour`, or `home` are stored in a YAML registry and mapped to navigation goals through ROS 2 Nav2.
+- summarize the current scene
+- list visible objects
+- generate annotated image overlays
+- provide left / center / right object hints
+- answer perception-grounded language queries
+
+### 🧭 Semantic Place Navigation
+
+Named places are grounded through a YAML registry and mapped to robot poses for Nav2 execution.
+
+Examples include:
+
+- `entrance`
+- `dining`
+- `kitchen`
+- `sitting_room`
+- `gym_room`
+- `bedroom`
+- `study_room`
+- `visitors_room`
+
+### 🏠 Small-House World Integration
+
+The project includes a **small-house world navigation workflow** with semantic room-level place definitions captured directly from AMCL-localized robot poses.
+
+This enables:
+
+- room-aware navigation
+- reproducible semantic goal selection
+- quick place-button navigation from the frontend
+- YAML-driven extension of new rooms and destinations
 
 ### 🕹️ Manual Motion Control
-The control page exposes direct robot actions such as:
+
+The control page supports direct motion primitives such as:
+
 - move forward
 - move backward
 - turn left
@@ -80,28 +115,30 @@ The control page exposes direct robot actions such as:
 - stop
 
 ### 🧠 Robot State Memory
-The backend stores:
+
+The backend maintains structured short-term robot memory including:
+
 - current pose
 - previous pose
 - last command
 - last result
 - event history
-- scan summaries
-- robot status snapshots
+- scan summary
+- navigation state
+- robot status snapshot
 
-This allows the robot to answer state-aware questions instead of behaving like a stateless command parser.
+This lets the robot answer contextual questions instead of behaving like a stateless command dispatcher.
 
 ### 🌐 Full Web Command Center
-The UI includes dedicated pages for:
+
+The user interface includes dedicated pages for:
+
 - Home
 - Dashboard
 - Vision
 - Chat
 - Navigation
 - Control
-
-### ⚙️ ROS 2 Integration
-The system integrates directly with ROS 2 topics, Nav2 actions, camera feeds, scan data, localization, and motion publishing.
 
 ---
 
@@ -133,23 +170,23 @@ The system is organized into four major layers. Each layer has a clear responsib
 
 #### 1. Interaction Layer
 
-The interaction layer is the user-facing part of the system. It provides a clean web command center for issuing commands, monitoring robot state, viewing perception results, and interacting through chat or voice.
+The interaction layer is the user-facing entry point of the system.
 
-It includes:
+It provides:
 
-- text-based chat commands
-- browser speech-to-text input
+- text chat commands
+- speech-to-text input
 - quick command buttons
-- navigation controls
+- semantic navigation controls
 - manual motion controls
-- dashboard status cards
-- vision monitoring panels
+- dashboard monitoring
+- vision result visualization
 
 #### 2. Language Layer
 
-The language layer converts natural user instructions into structured robot intents.
+The language layer converts human instructions into structured robot intents.
 
-Example user commands include:
+Example user commands:
 
 ```text
 Go to the kitchen
@@ -159,54 +196,44 @@ Move forward
 Stop
 ```
 
-These commands are interpreted as robot-safe actions such as:
+Example parsed intents:
 
-- `NAVIGATE_TO_PLACE`
-- `MOVE_FORWARD`
-- `TURN_LEFT`
-- `SCENE_SUMMARY`
-- `GET_ROBOT_STATUS`
-- `GET_CURRENT_POSE`
-- `GET_LAST_COMMAND`
+```text
+NAVIGATE_TO_PLACE
+FOLLOW_WAYPOINT_ROUTE
+MOVE_FORWARD
+TURN_LEFT
+SCENE_SUMMARY
+GET_POSE
+GET_LAST_COMMAND
+```
 
 #### 3. Perception Layer
 
-The perception layer connects the robot’s camera stream to multimodal understanding modules.
+The perception layer connects the camera stream to multimodal understanding modules.
 
 It supports:
 
 - object detection
 - scene summarization
 - annotated image generation
-- object position hints such as left, center, and right
-- perception-grounded robot responses
-
-This allows the robot to answer questions such as:
-
-```text
-What do you see?
-Is there anything in front of you?
-List visible objects
-Describe the scene
-```
+- direction-aware object hints
+- perception-grounded chat responses
 
 #### 4. Execution Layer
 
-The execution layer connects interpreted commands to ROS 2 execution.
+The execution layer turns structured backend actions into ROS 2 execution.
 
-It converts structured backend actions into:
+It supports:
 
-- Nav2 navigation goals
-- named waypoint navigation
-- route execution
-- `/cmd_vel` velocity commands
+- Nav2 `NavigateToPose`
+- waypoint following
+- `/cmd_vel` control
 - robot stop commands
 - scan summaries
-- pose queries
-- camera capture requests
+- AMCL pose queries
+- camera-trigger workflows
 - robot state updates
-
-This layer is responsible for safely bridging the web application and the live robot system.
 
 ---
 
@@ -218,7 +245,7 @@ This layer is responsible for safely bridging the web application and the live r
 - **Nav2**
 - **Gazebo**
 - **AMCL**
-- **TurtleBot3**
+- **TurtleBot3 Waffle Pi**
 
 ### Backend
 
@@ -240,32 +267,62 @@ This layer is responsible for safely bridging the web application and the live r
 - **CLIP / OpenCLIP**
 - **OpenCV**
 - **NumPy**
+- **PyTorch**
 
 ### Interaction
 
 - **Web Speech API**
-- **REST API**
-- **JSON-based command and response flow**
+- **REST APIs**
+- **Typed JSON request / response flow**
 
-### Configuration and State
+### Grounding and State
 
 - **YAML action registry**
+- **YAML place registry**
 - **State memory store**
-- **Typed schemas**
-- **Robot event history**
+- **Pose history**
+- **Event history**
+
+---
+
+## 🏠 Small-House Semantic Navigation
+
+The project includes a semantic small-house navigation configuration grounded from AMCL-localized robot poses.
+
+### Current Small-House Places
+
+| Place | x | y | Orientation |
+|---|---:|---:|---|
+| Dining | `8.942` | `0.018` | `qz=-0.524, qw=0.852` |
+| Kitchen | `10.945` | `-2.037` | `qz=-0.099, qw=0.995` |
+| Sitting Room | `4.585` | `-1.732` | `qz=-0.835, qw=0.550` |
+| Gym Room | `5.363` | `1.752` | `qz=0.112, qw=0.994` |
+| Bedroom | `-2.567` | `-0.789` | `qz=0.801, qw=0.598` |
+| Study Room | `-3.940` | `-0.185` | `qz=0.945, qw=0.327` |
+| Visitors Room | `-3.075` | `-3.774` | `qz=0.671, qw=0.742` |
+
+### Small-House Demo Assets
+
+| Asset | Path |
+|---|---|
+| Demo video | `docs/demo/videos/My_Robot_small_house_demo.mp4` |
+| Small-house navigation page preview | `docs/images/ui-navigation-page.png` |
+| Gazebo world preview | `docs/images/robot-gazebo-overview.png` |
+| RViz preview | `docs/images/robot-rviz-overview.png` |
 
 ---
 
 ## 📂 Project Structure
 
 ```text
-Language-Grounded-Robot-Autonomy/
+Language-Vision-Grounded-Robot-Autonomy/
 ├── backend/
 │   ├── app/
 │   │   ├── main.py
 │   │   ├── api/
 │   │   │   └── routes/
 │   │   │       ├── chat.py
+│   │   │       ├── localization.py
 │   │   │       ├── memory.py
 │   │   │       ├── navigation.py
 │   │   │       ├── robot.py
@@ -286,8 +343,8 @@ Language-Grounded-Robot-Autonomy/
 │   │   │   ├── vision_service.py
 │   │   │   └── yaml_registry.py
 │   │   └── data/
-│   │       └── robot_actions.yaml
-│   │
+│   │       ├── robot_actions.yaml
+│   │       └── vision_labels.yaml
 │   └── requirements.txt
 │
 ├── frontend/
@@ -311,11 +368,15 @@ Language-Grounded-Robot-Autonomy/
 │   │   │   └── vision-panel.tsx
 │   │   └── lib/
 │   │       └── api.ts
-│   │
 │   ├── package.json
 │   └── next.config.ts
 │
 ├── docs/
+│   ├── demo/
+│   │   ├── index.html
+│   │   ├── images/
+│   │   └── videos/
+│   │       └── My_Robot_small_house_demo.mp4
 │   └── images/
 │       ├── hero-ui-overview.png
 │       ├── architecture-overview.png
@@ -330,6 +391,11 @@ Language-Grounded-Robot-Autonomy/
 │       ├── robot-annotated-vision.png
 │       └── workflow-chat-to-ros2.png
 │
+├── launch/
+├── models/
+├── rviz/
+├── urdf/
+├── worlds/
 ├── README.md
 └── .gitignore
 ```
@@ -338,7 +404,7 @@ Language-Grounded-Robot-Autonomy/
 
 ## 🧠 How the Framework Works
 
-The framework follows a structured command-processing pipeline from the web interface to ROS 2 execution.
+The framework follows a structured command lifecycle from user interaction to ROS 2 execution and frontend feedback.
 
 ```text
 User Command
@@ -362,99 +428,69 @@ Robot Response
 Frontend Feedback
 ```
 
-### 1. User Sends a Command
+### Command Lifecycle
 
-The user can interact with the robot through:
+#### 1. User Interaction
 
-- typed text on the chat page
-- voice input through the microphone
-- quick command buttons
-- navigation page controls
-- manual motion controls
+The user interacts through:
 
-### 2. Frontend Calls the Backend
+- typed chat
+- microphone input
+- quick motion buttons
+- navigation place buttons
+- control actions
+- dashboard inspection
+- vision queries
 
-The frontend sends structured REST requests to the FastAPI backend.
+#### 2. Frontend Request Dispatch
 
-Example endpoints include:
+The frontend sends structured requests to the FastAPI backend.
 
-```text
+Example routes include:
+
+```http
 POST /api/chat/command
-POST /api/navigation/go-to
+POST /api/localization/initialize
+POST /api/navigation/go-to/{place_name}
 POST /api/robot/stop
 GET  /api/vision/scene-summary-fast
+GET  /api/system/environment
+GET  /api/navigation/places
 ```
 
-### 3. Backend Parses Intent
+#### 3. Intent Parsing and Grounding
 
-The backend classifies the user command into a structured robot intent.
+The backend:
 
-Example intents include:
+- parses the command
+- maps it to a supported robot action
+- resolves semantic places or routes from YAML
+- checks state memory where needed
+- builds a robot-safe execution request
 
-```text
-NAVIGATE_TO_PLACE
-MOVE_FORWARD
-MOVE_BACKWARD
-TURN_LEFT
-TURN_RIGHT
-SCENE_SUMMARY
-GET_POSE
-GET_LAST_COMMAND
-STOP_ROBOT
-```
+#### 4. ROS 2 Execution
 
-### 4. Action Mapper Grounds the Request
+The ROS 2 bridge executes actions through:
 
-The action mapper connects the interpreted intent to known robot capabilities.
+- Nav2 action clients
+- topic subscriptions
+- motion publishing
+- scan handling
+- camera ingestion
+- AMCL pose updates
 
-It checks:
+#### 5. Feedback and Memory Update
 
-- named places
-- route definitions
-- motion primitives
-- aliases
-- supported robot queries
-- state-aware commands
-
-### 5. ROS 2 Bridge Executes the Action
-
-The ROS 2 bridge converts backend actions into robot-level execution.
-
-It can interact with:
-
-- Nav2 action goals
-- waypoint routes
-- velocity commands
-- scan summaries
-- pose estimates
-- camera data
-- robot status topics
-
-### 6. State Store Updates Robot Memory
-
-The state store records useful execution context such as:
+The backend updates:
 
 - current pose
 - previous pose
 - last command
 - last result
-- robot status
 - scan summary
 - event history
 
-This gives the robot short-term memory and allows it to answer context-aware questions.
-
-### 7. Frontend Displays Structured Feedback
-
-The frontend displays:
-
-- human-readable robot response
-- raw JSON response
-- robot status
-- perception results
-- annotated vision output
-- navigation feedback
-- command execution result
+The frontend then renders both human-readable and raw structured responses.
 
 ---
 
@@ -464,9 +500,8 @@ The frontend displays:
 
 ```http
 GET /api/system/health
+GET /api/system/environment
 ```
-
-Used to check whether the backend is running.
 
 ### Robot
 
@@ -477,16 +512,19 @@ POST /api/robot/stop
 POST /api/robot/capture
 ```
 
-Used for robot status, scan data, emergency stop, and camera capture.
+### Localization
+
+```http
+POST /api/localization/initialize
+```
 
 ### Navigation
 
 ```http
-POST /api/navigation/go-to
+GET  /api/navigation/places
+POST /api/navigation/go-to/{place_name}
 POST /api/navigation/follow-route
 ```
-
-Used for semantic place-based navigation and route execution.
 
 ### Vision
 
@@ -494,17 +532,14 @@ Used for semantic place-based navigation and route execution.
 GET /api/vision/scene-summary-fast
 GET /api/vision/objects-fast
 GET /api/vision/objects-fast-annotated
+GET /api/vision/scene-summary-fast-annotated
 ```
-
-Used for scene understanding, object detection, and annotated perception output.
 
 ### Chat
 
 ```http
 POST /api/chat/command
 ```
-
-Used for natural language robot commands.
 
 ### Memory
 
@@ -514,8 +549,6 @@ GET /api/memory/pose-history
 GET /api/memory/event-history
 ```
 
-Used for retrieving stored robot state, pose history, and event history.
-
 ---
 
 ## 💬 Example Commands
@@ -524,10 +557,10 @@ Used for retrieving stored robot state, pose history, and event history.
 
 ```text
 Go to the kitchen
-Go to the garage
-Go to home
+Go to the dining room
+Go to the study room
+Go to the visitors room
 Start patrol route
-Navigate to the parlour
 ```
 
 ### Motion
@@ -548,28 +581,26 @@ What do you see?
 List visible objects
 Describe the scene
 Capture image
-Is there an obstacle ahead?
+Is there anything ahead?
 ```
 
 ### State Queries
 
 ```text
 Where are you?
+What is your status?
 What was your last command?
 What was your previous position?
-What is your status?
 Show me your pose history
 ```
 
 ---
 
-## 🗺️ YAML-Driven Robot Grounding
+## 🗺️ YAML-Driven Grounding
 
-The framework uses a YAML registry to define robot-understandable environment concepts.
+The framework uses a YAML registry to define robot-understandable places, routes, aliases, and motion primitives.
 
-Instead of hardcoding every destination or movement inside Python logic, the robot can be configured through a simple YAML file.
-
-### Example YAML Registry
+### Example Registry Snippet
 
 ```yaml
 places:
@@ -578,18 +609,20 @@ places:
       - kitchen
       - cooking area
     pose:
-      x: -4.0
-      y: 3.0
-      yaw: 3.14
+      x: 10.9447
+      y: -2.0367
+      qz: -0.0991
+      qw: 0.9951
 
-  garage:
+  study_room:
     aliases:
-      - garage
-      - parking area
+      - study room
+      - study
     pose:
-      x: 3.2
-      y: -5.5
-      yaw: -1.57
+      x: -3.9399
+      y: -0.1851
+      qz: 0.9451
+      qw: 0.3269
 
 motions:
   move_forward:
@@ -601,42 +634,33 @@ motions:
       linear_x: 0.20
       angular_z: 0.0
       duration_sec: 2.0
-
-  turn_left:
-    aliases:
-      - turn left
-      - rotate left
-    cmd_vel:
-      linear_x: 0.0
-      angular_z: 0.40
-      duration_sec: 1.5
 ```
 
-### Why YAML Grounding Matters
+### Why This Matters
 
-This design makes the robot easier to adapt because you can:
+This design makes the system easier to adapt because you can:
 
-- change named places without editing backend logic
-- define new destinations for a new map
-- add synonyms for natural user commands
-- customize motion primitives for different robots
-- define routes for patrol or inspection tasks
-- separate robot configuration from application code
+- change place definitions without touching robot logic
+- add new rooms for a new map
+- define new natural-language aliases
+- customize robot-specific motion primitives
+- create patrol or inspection routes
+- separate environment grounding from execution code
 
 ---
 
 ## 🧪 Vision Capabilities
 
-The perception stack supports fast visual understanding from robot camera data.
+The perception stack supports fast visual understanding from live camera data.
 
 It can return:
 
-- detected objects
+- visible object labels
 - confidence scores
 - bounding boxes
-- object direction hints
+- left / center / right direction hints
 - scene summaries
-- annotated image outputs
+- annotated image output
 
 ### Example Scene Summary
 
@@ -647,7 +671,7 @@ It can return:
 }
 ```
 
-### Example Object Detection Response
+### Example Detection Item
 
 ```json
 {
@@ -657,126 +681,6 @@ It can return:
   "direction": "left"
 }
 ```
-
----
-
-## 🧭 Navigation and Control Design
-
-The project separates high-level navigation from low-level control.
-
-### Navigation Page
-
-The navigation page is used for semantic robot movement.
-
-It supports:
-
-- place-based movement
-- route execution
-- named destination selection
-- semantic goal commands
-
-Example:
-
-```text
-Go to the kitchen
-```
-
-This type of command is resolved into a known pose and sent to the Nav2 navigation stack.
-
-### Control Page
-
-The control page is used for direct robot motion.
-
-It supports:
-
-- move forward
-- move backward
-- turn left
-- turn right
-- rotate
-- stop
-
-This separation improves:
-
-- safety
-- interface clarity
-- operator understanding
-- debugging
-- future system extension
-
----
-
-## 🎤 Voice Command Support
-
-The chat interface includes microphone support using the browser’s speech recognition capability.
-
-### Current Voice Flow
-
-```text
-Microphone Button
-    ↓
-Browser Speech Recognition
-    ↓
-Text Transcription
-    ↓
-Chat Input
-    ↓
-FastAPI Command Request
-    ↓
-Robot Response
-```
-
-### Current Behavior
-
-- click the microphone button
-- speak a robot command
-- transcription is inserted into the chat input
-- submit the recognized command to the backend
-- receive a structured robot response
-
-### Notes
-
-- best supported in Chromium-based browsers
-- requires browser microphone permission
-- transcription quality depends on the microphone and browser speech engine
-- voice input is currently used as a command-entry method, not as a full dialogue engine
-
----
-
-## 📸 Suggested README Image Plan
-
-Create the following image files and place them inside:
-
-```text
-docs/images/
-```
-
-### UI Images
-
-| File Name | Purpose |
-|---|---|
-| `hero-ui-overview.png` | Full application screenshot showing sidebar and one main page |
-| `ui-home-page.png` | Home page screenshot |
-| `ui-dashboard-page.png` | Dashboard page with robot status cards |
-| `ui-vision-page.png` | Vision page showing scene summary and annotated image |
-| `ui-chat-page.png` | Chat page with command, answer, and response sections |
-| `ui-navigation-page.png` | Navigation page with quick destination buttons |
-| `ui-control-page.png` | Control page with manual motion commands |
-
-### Robot / Simulation Images
-
-| File Name | Purpose |
-|---|---|
-| `robot-gazebo-overview.png` | Robot inside the Gazebo simulation world |
-| `robot-rviz-overview.png` | RViz screenshot showing localization, map, and navigation |
-| `robot-annotated-vision.png` | Annotated camera result from the perception pipeline |
-
-### Architecture / Workflow Images
-
-| File Name | Purpose |
-|---|---|
-| `architecture-overview.png` | Full system architecture diagram |
-| `workflow-chat-to-ros2.png` | Command flow diagram from UI to ROS 2 execution |
 
 ---
 
@@ -820,12 +724,12 @@ docs/images/
 
 ---
 
-## 🤖 Robot and Perception Preview
+## 🤖 Robot and Simulation Preview
 
-### Gazebo Simulation
+### Gazebo
 
 <p align="center">
-  <img src="docs/images/robot-gazebo-overview.png" alt="Gazebo Robot Overview" width="100%" />
+  <img src="docs/images/robot-gazebo-overview.png" alt="Gazebo Overview" width="100%" />
 </p>
 
 ### RViz
@@ -847,8 +751,8 @@ docs/images/
 ### 1. Clone the Repository
 
 ```bash
-git clone git@github.com:promzyadiole/Language-Grounded-Robot-Autonomy.git
-cd Language-Grounded-Robot-Autonomy
+git clone git@github.com:promzyadiole/Language-Vision-Grounded-Robot-Autonomy.git
+cd Language-Vision-Grounded-Robot-Autonomy
 ```
 
 ### 2. Backend Setup
@@ -858,7 +762,7 @@ cd backend
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python -m uvicorn app.main:app --reload
+uvicorn app.main:app --reload
 ```
 
 The backend runs at:
@@ -883,48 +787,48 @@ The frontend runs at:
 http://localhost:3000
 ```
 
-### 4. Launch ROS 2 / Gazebo / Nav2
+### 4. Launch Simulation and Navigation Stack
 
-Start your robot simulation or real robot stack separately.
+Start your ROS 2 / Gazebo / Nav2 stack separately.
 
 Make sure the following are available:
 
-- localization pose source
+- AMCL pose source
 - camera topic
 - laser scan topic
-- Nav2 action server
-- `/cmd_vel` publishing path
-- robot map and transform tree
+- working TF tree
+- Nav2 action servers
+- `/cmd_vel`
+- environment map
+- valid semantic place definitions
 
 ---
 
-## 🛠️ Adapting This Framework to Your Own Robot
-
-This project is intentionally built to be portable.
+## 🛠️ Adapting the Framework to Your Own Robot
 
 To connect your own robot, update the robot-specific integration points below.
 
-### 1. Update ROS Topic and Action Names
+### 1. ROS Interfaces
 
-Modify:
+Update:
 
 ```text
 backend/app/services/ros2_bridge.py
 ```
 
-Update the bridge to match your robot’s:
+Adjust topic and action names for your robot’s:
 
-- odometry topic
-- scan topic
-- image topic
-- camera info topic
-- localization topic
-- navigation action interface
-- motion command topic
+- odometry
+- scan
+- image
+- camera info
+- localization
+- navigation
+- motion commands
 
-### 2. Update YAML Places and Routes
+### 2. Environment Grounding
 
-Edit:
+Update:
 
 ```text
 backend/app/data/robot_actions.yaml
@@ -932,142 +836,123 @@ backend/app/data/robot_actions.yaml
 
 Define:
 
-- named locations
-- aliases users may say
-- route sequences
-- direct motion primitives
-- environment-specific commands
+- named rooms and places
+- aliases
+- routes
+- motion primitives
+- environment-specific goals
 
-### 3. Ensure Localization Is Available
+### 3. Localization Source
 
-The robot should publish a pose source such as:
+Ensure your robot publishes localization such as:
 
 ```text
 /amcl_pose
 ```
 
-or another localization estimate used by your own robot stack.
+or an equivalent pose estimate.
 
-### 4. Make Sure Navigation Is Reachable
+### 4. Navigation Availability
 
-For semantic navigation commands, your robot needs:
+For semantic navigation, your robot needs:
 
-- Nav2 or an equivalent goal interface
-- valid global and local planners
-- correct map frame setup
-- working transform tree
-- reachable goal poses
+- Nav2 or equivalent goal interface
+- valid planners
+- correct map frame
+- consistent transforms
+- reachable poses
 
-### 5. Confirm Perception Topics
+### 5. Vision Topics
 
-Your robot must publish camera data compatible with the backend vision service.
-
-Typical camera inputs include:
+Your robot should publish:
 
 - RGB image topic
 - camera info topic
-- optional depth image topic
-
-### 6. Test Incrementally
-
-Recommended testing order:
-
-1. system health
-2. robot status
-3. stop command
-4. motion command
-5. navigation command
-6. scene summary
-7. annotated vision
-8. chat command
-9. voice command
+- optional capture trigger support
 
 ---
 
 ## 📈 Why This Project Matters
 
-This repository is more than a web UI around ROS topics.
+This repository is not just a UI around ROS topics.
 
-It demonstrates how to build a robot system that is:
+It demonstrates how to build a robotics system that is:
 
 - language-grounded
-- perception-aware
+- vision-aware
 - stateful
+- semantically navigable
 - web-accessible
 - operator-friendly
-- portable to custom robots
 - research-relevant
-- engineering-ready
+- adaptable to custom robots
 
-It serves as a strong foundation for:
+It is a strong foundation for:
 
-- thesis work
-- human-robot interaction demos
+- thesis demonstrations
 - embodied AI prototypes
+- human-robot interaction experiments
 - multimodal robotics research
-- deployable command-center interfaces
-- AI/robotics interview demonstrations
+- full-stack robot command interfaces
+- AI and robotics portfolio presentations
 
 ---
 
-## 🧩 Current Capabilities Summary
+## ✅ Current Capability Summary
 
-- ✅ Text-based robot commands
-- ✅ Voice command input
-- ✅ FastAPI control backend
-- ✅ Next.js command center frontend
+- ✅ Natural-language robot commands
+- ✅ Voice command entry
+- ✅ FastAPI backend
+- ✅ Next.js frontend
 - ✅ ROS 2 bridge integration
 - ✅ Nav2 place-based navigation
+- ✅ Small-house semantic room navigation
 - ✅ Manual motion primitives
 - ✅ Scene summary
 - ✅ Object detection
 - ✅ Annotated perception outputs
 - ✅ Robot state memory
 - ✅ YAML-based grounding
-- ✅ Status queries
-- ✅ Pose queries
-- ✅ Event history queries
+- ✅ Pose and status queries
+- ✅ Event and pose history support
 
 ---
 
 ## 🔮 Planned Improvements
 
+- richer semantic mapping
 - retrieval-augmented robot memory
-- richer long-horizon task planning
+- long-horizon task planning
 - stronger multimodal reasoning
 - real-world hardware deployment
-- authentication and remote access
-- trajectory history visualization
-- map-aware semantic navigation
-- mission logs and replay tools
+- trajectory visualization
+- mission logging and replay
 - multi-robot support
-- improved speech dialogue loop
-- richer failure recovery behavior
+- more robust speech dialogue loops
+- improved recovery behavior
 
 ---
 
 ## 📚 Research Context
 
-This project is aligned with research directions in:
+This project aligns with research directions in:
 
 - language-grounded human-robot interaction
-- large language models for robotics
-- multimodal perception for embodied agents
+- multimodal embodied AI
+- semantic robot navigation
 - explainable robot command systems
-- full-stack interfaces for autonomous systems
-- language-conditioned navigation
-- semantic robot task execution
+- full-stack autonomy interfaces
+- vision-language reasoning for robotics
 
-It draws inspiration from work in:
+It draws inspiration from ecosystems and ideas around:
 
-- ReLI
-- Code as Policies
-- ProgPrompt
-- CLIP
-- SAM
 - ROS 2
 - Nav2
+- SAM
+- CLIP
 - embodied AI systems
+- language-conditioned navigation
+- multimodal robotics interfaces
 
 ---
 
@@ -1075,7 +960,7 @@ It draws inspiration from work in:
 
 **Promzy Adiole**
 
-Built as part of a broader research and engineering effort in language-grounded robot autonomy, combining robotics, web systems, multimodal AI, and human-robot interaction.
+Built as part of a broader research and engineering effort in language-grounded robot autonomy, combining robotics, multimodal AI, web systems, and human-robot interaction.
 
 ---
 
@@ -1095,11 +980,11 @@ MIT License
 
 Special thanks to:
 
-- academic supervisors and research mentors
+- supervisors and research mentors
 - the ROS 2 and Nav2 communities
-- the open-source computer vision community
-- the multimodal AI ecosystem
-- the broader robotics research community advancing language-grounded autonomy
+- the open-source perception ecosystem
+- the multimodal AI community
+- the robotics research community advancing language-grounded autonomy
 
 ---
 
@@ -1108,5 +993,5 @@ Special thanks to:
 If this project helps your work, consider starring the repository and referencing it in your academic, research, or engineering portfolio.
 
 <p align="center">
-  <strong>Language • Perception • Navigation • Interaction • Autonomy</strong>
+  <strong>Language • Vision • Navigation • Interaction • Autonomy</strong>
 </p>
