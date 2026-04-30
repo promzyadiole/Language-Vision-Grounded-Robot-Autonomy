@@ -1,9 +1,9 @@
 # 🤖 Language-Vision-Grounded-Robot-Autonomy
 
-[![Language-Vision-Grounded Robot Autonomy UI Overview](docs/images/spawned_robot.png)](./docs/demo/videos/My_Robot_small_house_demo.mp4)
+[![Language-Vision-Grounded Robot Autonomy UI Overview](docs/images/spawned_robot.png)](https://promzyadiole.github.io/Language-Vision-Grounded-Robot-Autonomy/demo/)
 
 <p align="center">
-  <strong><a href="./docs/demo/videos/My_Robot_small_house_demo.mp4">▶ Watch Demo Video</a></strong>
+  <strong><a href="https://promzyadiole.github.io/Language-Vision-Grounded-Robot-Autonomy/demo/">▶ Watch Demo Video</a></strong>
 </p>
 
 <p align="center">
