@@ -26,7 +26,16 @@ def chat_command(
     store: StateStore = Depends(get_state_store_dep),
     vision: VisionService = Depends(get_vision_service),
 ):
-    parsed = parser.parse(payload.message)
+    user_text = (
+        getattr(payload, "message", None)
+        or getattr(payload, "command", None)
+        or ""
+    ).strip()
+
+    if not user_text:
+        raise HTTPException(status_code=400, detail="Command text is required.")
+
+    parsed = parser.parse(user_text)
 
     if parsed.intent in {
         "GET_STATUS",

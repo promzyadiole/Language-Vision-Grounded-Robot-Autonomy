@@ -2,12 +2,13 @@ from __future__ import annotations
 
 import base64
 from datetime import datetime, timezone
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 import cv2
 
 from app.services.sam_clip_perceptor import SamClipPerceptor
 from app.services.state_store import state_store
+from app.services.yaml_registry import get_yaml_registry
 
 
 class VisionService:
@@ -188,3 +189,15 @@ class VisionService:
             return None
 
         return base64.b64encode(buffer.tobytes()).decode("utf-8")
+
+
+_vision_service: Optional[VisionService] = None
+
+
+def get_vision_service() -> VisionService:
+    global _vision_service
+    if _vision_service is None:
+        registry = get_yaml_registry()
+        perceptor = SamClipPerceptor(registry)
+        _vision_service = VisionService(perceptor)
+    return _vision_service

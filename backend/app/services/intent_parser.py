@@ -123,3 +123,13 @@ class IntentParser:
         raw = self.llm.chat_json(INTENT_SYSTEM_PROMPT, user_message)
         data = json.loads(raw)
         return ParsedIntent(**data)
+
+
+_intent_parser: IntentParser | None = None
+
+
+def get_intent_parser() -> IntentParser:
+    global _intent_parser
+    if _intent_parser is None:
+        _intent_parser = IntentParser()
+    return _intent_parser

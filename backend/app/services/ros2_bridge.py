@@ -116,6 +116,8 @@ class ROS2Bridge(Node):
             "y": msg.pose.pose.position.y,
             "yaw": yaw,
             "frame_id": msg.header.frame_id,
+            "qz": msg.pose.pose.orientation.z,
+            "qw": msg.pose.pose.orientation.w,
         }
 
         self.store.set("amcl_pose", pose_data)
@@ -205,8 +207,28 @@ class ROS2Bridge(Node):
         pose.header.stamp = self.get_clock().now().to_msg()
         pose.pose.position.x = x
         pose.pose.position.y = y
+        pose.pose.position.z = 0.0
         pose.pose.orientation.x = qx
         pose.pose.orientation.y = qy
+        pose.pose.orientation.z = qz
+        pose.pose.orientation.w = qw
+        return pose
+
+    def create_pose_stamped_quaternion(
+        self,
+        x: float,
+        y: float,
+        qz: float,
+        qw: float,
+    ) -> PoseStamped:
+        pose = PoseStamped()
+        pose.header.frame_id = "map"
+        pose.header.stamp = self.get_clock().now().to_msg()
+        pose.pose.position.x = x
+        pose.pose.position.y = y
+        pose.pose.position.z = 0.0
+        pose.pose.orientation.x = 0.0
+        pose.pose.orientation.y = 0.0
         pose.pose.orientation.z = qz
         pose.pose.orientation.w = qw
         return pose
@@ -221,7 +243,26 @@ class ROS2Bridge(Node):
         self.store.set("is_navigating", True)
         return {
             "success": True,
-            "message": f"Navigation request sent to ({x}, {y}, {yaw}).",
+            "message": f"Navigation request sent to ({x}, {y}, yaw={yaw}).",
+        }
+
+    def navigate_to_pose_quaternion(
+        self,
+        x: float,
+        y: float,
+        qz: float,
+        qw: float,
+    ) -> Dict[str, Any]:
+        goal_msg = NavigateToPose.Goal()
+        goal_msg.pose = self.create_pose_stamped_quaternion(x, y, qz, qw)
+
+        future = self.navigate_to_pose_client.send_goal_async(goal_msg)
+        future.add_done_callback(self._navigate_goal_response_callback)
+
+        self.store.set("is_navigating", True)
+        return {
+            "success": True,
+            "message": f"Navigation request sent to ({x}, {y}, qz={qz}, qw={qw}).",
         }
 
     def _navigate_goal_response_callback(self, future) -> None:
@@ -248,6 +289,10 @@ class ROS2Bridge(Node):
 
             if status == GoalStatus.STATUS_SUCCEEDED:
                 self.get_logger().info("NavigateToPose succeeded.")
+            elif status == GoalStatus.STATUS_ABORTED:
+                self.get_logger().warning("NavigateToPose aborted.")
+            elif status == GoalStatus.STATUS_CANCELED:
+                self.get_logger().warning("NavigateToPose canceled.")
             else:
                 self.get_logger().warning(
                     f"NavigateToPose finished with status {status}."
@@ -295,6 +340,10 @@ class ROS2Bridge(Node):
 
             if status == GoalStatus.STATUS_SUCCEEDED:
                 self.get_logger().info("FollowWaypoints succeeded.")
+            elif status == GoalStatus.STATUS_ABORTED:
+                self.get_logger().warning("FollowWaypoints aborted.")
+            elif status == GoalStatus.STATUS_CANCELED:
+                self.get_logger().warning("FollowWaypoints canceled.")
             else:
                 self.get_logger().warning(
                     f"FollowWaypoints finished with status {status}."
@@ -318,7 +367,9 @@ class ROS2Bridge(Node):
         return {
             "success": True,
             "message": (
-                "Navigation canceled." if canceled_any else "No active navigation to cancel."
+                "Navigation canceled."
+                if canceled_any
+                else "No active navigation to cancel."
             ),
         }
 

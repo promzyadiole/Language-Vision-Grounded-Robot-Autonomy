@@ -1,51 +1,52 @@
 places:
-  parlour:
-    aliases: ["parlour", "living room", "lounge", "sitting room"]
+  dining:
+    aliases: ["dining", "dining room", "dining area"]
     pose:
-      x: -3.0
-      y: 0.0
-      yaw: 3.14
+      x: 8.941754097318045
+      y: 0.018029767058794003
+      yaw: -1.102221
 
   kitchen:
     aliases: ["kitchen"]
     pose:
-      x: -4.0
-      y: 3.0
-      yaw: 3.14
+      x: 10.944720631741301
+      y: -2.0366559182181296
+      yaw: -0.198510
 
-  dining_room:
-    aliases: ["dining room", "dining area"]
+  sitting_room:
+    aliases: ["sitting room", "parlour", "living room", "lounge"]
     pose:
-      x: 8.0
-      y: 3.0
-      yaw: 1.57
-    metadata:
-      capture_on_arrival: true
+      x: 4.584935370932155
+      y: -1.732426717936883
+      yaw: -1.976274
 
-  master_bedroom:
-    aliases: ["master bedroom", "bedroom"]
+  gym_room:
+    aliases: ["gym room", "gym", "fitness room"]
     pose:
-      x: 8.0
-      y: -3.0
-      yaw: 1.57
+      x: 5.362603231972828
+      y: 1.7521013027719252
+      yaw: 0.223523
 
-  garage:
-    aliases: ["garage"]
+  bedroom:
+    aliases: ["bedroom", "master bedroom"]
     pose:
-      x: 3.2
-      y: -5.5
-      yaw: -1.57
-    metadata:
-      capture_on_arrival: true
+      x: -2.566750913179668
+      y: -0.789164807151224
+      yaw: 1.859690
 
-  store_area:
-    aliases: ["store area", "store", "storage"]
+  study_room:
+    aliases: ["study room", "study", "study area", "office"]
     pose:
-      x: -3.0
-      y: -5.5
-      yaw: 3.14
-    metadata:
-      capture_on_arrival: true
+      x: -3.939945075025824
+      y: -0.1851448674441512
+      yaw: 2.475448
+
+  visitors_room:
+    aliases: ["visitor room", "visitors room", "guest room"]
+    pose:
+      x: -3.0746712415245443
+      y: -3.774420758500321
+      yaw: 1.469622
 
   home:
     aliases: ["home", "start", "origin", "base"]
@@ -58,18 +59,13 @@ routes:
   patrol_route:
     type: waypoint_sequence
     points:
-      - {x: -3.0, y: 0.0, yaw: 3.14, label: "parlour"}
-      - {x: -4.0, y: 3.0, yaw: 3.14, label: "kitchen"}
-      - {x: 2.0, y: 2.0, yaw: 0.0, label: "transit_1"}
-      - {x: 8.0, y: 3.0, yaw: 1.57, label: "dining_room", capture: true}
-      - {x: 8.0, y: -3.0, yaw: 1.57, label: "master_bedroom"}
-      - {x: 5.0, y: -1.5, yaw: 0.0, label: "transit_2"}
-      - {x: 2.5, y: -1.5, yaw: -1.57, label: "transit_3"}
-      - {x: 3.2, y: -5.5, yaw: -1.57, label: "garage", capture: true}
-      - {x: -3.0, y: -5.5, yaw: 3.14, label: "store_area", capture: true}
-      - {x: -2.0, y: -5.5, yaw: 1.57, label: "transit_4"}
-      - {x: -2.0, y: -3.0, yaw: 0.0, label: "transit_5"}
-      - {x: -3.0, y: 0.0, yaw: -1.57, label: "parlour_return", capture: true}
+      - {x: 4.584935370932155, y: -1.732426717936883, yaw: -1.976274, label: "sitting_room"}
+      - {x: 10.944720631741301, y: -2.0366559182181296, yaw: -0.198510, label: "kitchen"}
+      - {x: 8.941754097318045, y: 0.018029767058794003, yaw: -1.102221, label: "dining"}
+      - {x: 5.362603231972828, y: 1.7521013027719252, yaw: 0.223523, label: "gym_room"}
+      - {x: -2.566750913179668, y: -0.789164807151224, yaw: 1.859690, label: "bedroom"}
+      - {x: -3.939945075025824, y: -0.1851448674441512, yaw: 2.475448, label: "study_room"}
+      - {x: -3.0746712415245443, y: -3.774420758500321, yaw: 1.469622, label: "visitors_room"}
 
 motions:
   move_forward:
@@ -113,5 +109,3 @@ motions:
       linear_x: 0.0
       angular_z: 0.0
       duration_sec: 0.0
-
-  

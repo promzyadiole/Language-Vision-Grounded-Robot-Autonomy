@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from typing import Dict, Any
+from typing import Any, Dict, Optional
 
 from app.models.schemas import ParsedIntent
-from app.services.yaml_registry import YAMLRegistry
+from app.services.yaml_registry import YAMLRegistry, get_yaml_registry
 
 
 class ActionMapper:
@@ -35,7 +35,14 @@ class ActionMapper:
                 "points": route["points"],
             }
 
-        if parsed.intent in {"MOVE_FORWARD", "MOVE_BACKWARD", "TURN_LEFT", "TURN_RIGHT", "ROTATE", "STOP"}:
+        if parsed.intent in {
+            "MOVE_FORWARD",
+            "MOVE_BACKWARD",
+            "TURN_LEFT",
+            "TURN_RIGHT",
+            "ROTATE",
+            "STOP",
+        }:
             motion_key_map = {
                 "MOVE_FORWARD": "move_forward",
                 "MOVE_BACKWARD": "move_backward",
@@ -54,7 +61,14 @@ class ActionMapper:
                 "cmd_vel": motion["cmd_vel"],
             }
 
-        if parsed.intent in {"GET_STATUS", "GET_POSE", "GET_SCAN_SUMMARY", "LIST_VISIBLE_OBJECTS", "SCENE_SUMMARY", "CAPTURE_FRAME"}:
+        if parsed.intent in {
+            "GET_STATUS",
+            "GET_POSE",
+            "GET_SCAN_SUMMARY",
+            "LIST_VISIBLE_OBJECTS",
+            "SCENE_SUMMARY",
+            "CAPTURE_FRAME",
+        }:
             return {
                 "type": "query",
                 "query": parsed.intent,
@@ -64,3 +78,14 @@ class ActionMapper:
             "type": "unknown",
             "query": "UNKNOWN",
         }
+
+
+_action_mapper: Optional[ActionMapper] = None
+
+
+def get_action_mapper() -> ActionMapper:
+    global _action_mapper
+    if _action_mapper is None:
+        registry = get_yaml_registry()
+        _action_mapper = ActionMapper(registry)
+    return _action_mapper

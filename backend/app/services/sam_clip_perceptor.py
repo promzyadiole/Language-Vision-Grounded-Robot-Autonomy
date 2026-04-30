@@ -26,6 +26,10 @@ class SamClipPerceptor:
 
         self._predict_lock = threading.Lock()
 
+        print("DEBUG SAM_MODEL_TYPE =", self.settings.sam_model_type)
+        print("DEBUG SAM_CHECKPOINT_PATH =", self.settings.sam_checkpoint_path)
+        print("DEBUG VISION_DEVICE =", self.settings.vision_device)
+
         self._load_models()
 
     def _resolve_device(self, configured: str) -> str:
@@ -37,25 +41,36 @@ class SamClipPerceptor:
         vision_yaml_path = self.settings.vision_labels_yaml_path
         registry = YAMLRegistry(vision_yaml_path)
         raw = registry.data.get("vision_labels", [])
-        labels = []
+        labels: List[str] = []
+
         for item in raw:
             if isinstance(item, str):
                 labels.append(item)
             elif isinstance(item, dict) and "name" in item:
-                labels.append(item["name"])
+                labels.append(str(item["name"]))
+
         return labels
 
     def _to_clip_prompt(self, label: str) -> str:
         return f"a photo of a {label}"
 
     def _load_models(self) -> None:
-        if not self.settings.sam_checkpoint_path or not os.path.exists(self.settings.sam_checkpoint_path):
-            raise FileNotFoundError(
-                f"SAM checkpoint not found: {self.settings.sam_checkpoint_path}"
-            )
+        checkpoint_path = self.settings.sam_checkpoint_path
+        model_type = self.settings.sam_model_type.strip().lower()
 
-        checkpoint_name = os.path.basename(self.settings.sam_checkpoint_path).lower()
-        model_type = self.settings.sam_model_type.lower()
+        if not checkpoint_path or not os.path.exists(checkpoint_path):
+            raise FileNotFoundError(f"SAM checkpoint not found: {checkpoint_path}")
+
+        checkpoint_name = os.path.basename(checkpoint_path).lower()
+
+        print("DEBUG checkpoint_name =", checkpoint_name)
+        print("DEBUG normalized model_type =", model_type)
+
+        if model_type not in {"vit_b", "vit_l", "vit_h", "default"}:
+            raise ValueError(
+                f"Unsupported SAM_MODEL_TYPE '{self.settings.sam_model_type}'. "
+                "Expected one of: vit_b, vit_l, vit_h, default."
+            )
 
         if "vit_b" in checkpoint_name and model_type != "vit_b":
             raise ValueError(
@@ -67,15 +82,13 @@ class SamClipPerceptor:
                 f"SAM model mismatch: checkpoint '{checkpoint_name}' requires SAM_MODEL_TYPE=vit_l, "
                 f"but got '{self.settings.sam_model_type}'."
             )
-        if "vit_h" in checkpoint_name and model_type != "vit_h":
+        if "vit_h" in checkpoint_name and model_type not in {"vit_h", "default"}:
             raise ValueError(
                 f"SAM model mismatch: checkpoint '{checkpoint_name}' requires SAM_MODEL_TYPE=vit_h, "
                 f"but got '{self.settings.sam_model_type}'."
             )
 
-        sam = sam_model_registry[self.settings.sam_model_type](
-            checkpoint=self.settings.sam_checkpoint_path
-        )
+        sam = sam_model_registry[model_type](checkpoint=checkpoint_path)
         sam.to(device=self.device)
 
         self.mask_generator = SamAutomaticMaskGenerator(
@@ -85,10 +98,7 @@ class SamClipPerceptor:
             min_mask_region_area=self.settings.vision_min_mask_area,
         )
 
-        cache_dir = os.path.join(
-            os.path.dirname(self.settings.sam_checkpoint_path),
-            "hf_cache",
-        )
+        cache_dir = os.path.join(os.path.dirname(checkpoint_path), "hf_cache")
         os.makedirs(cache_dir, exist_ok=True)
 
         self.clip_model, _, self.clip_preprocess = open_clip.create_model_and_transforms(
@@ -103,6 +113,7 @@ class SamClipPerceptor:
             text_tokens = self.clip_tokenizer(self.text_prompts).to(self.device)
             text_features = self.clip_model.encode_text(text_tokens)
             text_features = text_features / text_features.norm(dim=-1, keepdim=True)
+
         self.text_features = text_features
 
     def predict_fast(self, rgb_image: np.ndarray) -> List[Dict[str, Any]]:
@@ -123,7 +134,9 @@ class SamClipPerceptor:
             scale = target_w / float(original_w)
             target_h = int(original_h * scale)
 
-            small_image = cv2.resize(rgb_image, (target_w, target_h), interpolation=cv2.INTER_AREA)
+            small_image = cv2.resize(
+                rgb_image, (target_w, target_h), interpolation=cv2.INTER_AREA
+            )
 
             candidate_boxes = self._grid_candidate_boxes(target_w, target_h)
             detections: List[Dict[str, Any]] = []
@@ -169,7 +182,9 @@ class SamClipPerceptor:
             scale = target_w / float(original_w)
             target_h = int(original_h * scale)
 
-            small_image = cv2.resize(rgb_image, (target_w, target_h), interpolation=cv2.INTER_AREA)
+            small_image = cv2.resize(
+                rgb_image, (target_w, target_h), interpolation=cv2.INTER_AREA
+            )
 
             masks = self.mask_generator.generate(small_image)
             masks = self._sort_and_limit_masks(masks, self.settings.vision_max_masks)
@@ -257,9 +272,12 @@ class SamClipPerceptor:
             "mask_id": box_id,
         }
 
-    def _sort_and_limit_masks(self, masks: List[Dict[str, Any]], max_masks: int) -> List[Dict[str, Any]]:
+    def _sort_and_limit_masks(
+        self, masks: List[Dict[str, Any]], max_masks: int
+    ) -> List[Dict[str, Any]]:
         filtered = [
-            m for m in masks
+            m
+            for m in masks
             if int(m.get("area", 0)) >= self.settings.vision_min_mask_area
         ]
         filtered.sort(
@@ -323,7 +341,9 @@ class SamClipPerceptor:
             "mask_id": mask_id,
         }
 
-    def _passes_geometry_filters(self, bbox: List[int], image_w: int, image_h: int) -> bool:
+    def _passes_geometry_filters(
+        self, bbox: List[int], image_w: int, image_h: int
+    ) -> bool:
         x1, y1, x2, y2 = bbox
         bw = max(1, x2 - x1)
         bh = max(1, y2 - y1)
@@ -377,7 +397,9 @@ class SamClipPerceptor:
 
         return kept
 
-    def _limit_per_label(self, detections: List[Dict[str, Any]], max_per_label: int = 3) -> List[Dict[str, Any]]:
+    def _limit_per_label(
+        self, detections: List[Dict[str, Any]], max_per_label: int = 3
+    ) -> List[Dict[str, Any]]:
         counts: Dict[str, int] = {}
         result: List[Dict[str, Any]] = []
 
@@ -391,7 +413,9 @@ class SamClipPerceptor:
 
         return result
 
-    def _attach_direction(self, detections: List[Dict[str, Any]], image_w: int) -> List[Dict[str, Any]]:
+    def _attach_direction(
+        self, detections: List[Dict[str, Any]], image_w: int
+    ) -> List[Dict[str, Any]]:
         for det in detections:
             cx = det["center_px"][0]
             ratio = cx / max(1, image_w)
@@ -426,4 +450,5 @@ class SamClipPerceptor:
         union = area_a + area_b - inter_area
         if union <= 0:
             return 0.0
+
         return inter_area / union

@@ -23,7 +23,11 @@ IntentType = Literal[
 
 
 class ChatCommandRequest(BaseModel):
-    message: str = Field(..., min_length=1)
+    message: str = Field(..., alias="command")
+
+    model_config = {
+        "populate_by_name": True,
+    }
 
 
 class ParsedIntent(BaseModel):

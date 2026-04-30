@@ -1,6 +1,6 @@
 # 🤖 Language-Vision-Grounded-Robot-Autonomy
 
-[![Language-Vision-Grounded Robot Autonomy UI Overview](docs/images/hero-ui-overview.png)](./docs/demo/videos/My_Robot_small_house_demo.mp4)
+[![Language-Vision-Grounded Robot Autonomy UI Overview](docs/images/spawned_robot.png)](./docs/demo/videos/My_Robot_small_house_demo.mp4)
 
 <p align="center">
   <strong><a href="./docs/demo/videos/My_Robot_small_house_demo.mp4">▶ Watch Demo Video</a></strong>
